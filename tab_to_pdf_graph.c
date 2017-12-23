@@ -7,7 +7,7 @@
 *	LINUX	gcc -o tab_to_pdf_graph -O2 -Wall tab_to_pdf_graph.c -lhpdf -lm
 *	WINDOWS	cl -FeTab_To_PDF_Graph.exe -MT -O2 -Iinclude -Iwin32\include tab_to_pdf_graph.c /link /LIBPATH:. /LIBPATH:win32\msvc libhpdf.lib libpng.lib zlib.lib
 *
-* Print command example: ./tab_to_pdf_graph cycle_20.pdf /var/www/pcl/cycle_20.pcl 62 1 "John Doe"
+* Print command example: Tab_To_PDF_Graph.exe tab_file.tab pdf_file.pdf
 *
 * Example prints are available on the wiki page
 */
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
 
 	if (argc < 3) {
 		printf("\nAdd [Tab File] [PDF File]\n\n\
-	 	Example: /home/user/tabfile.tab /home/user/filetoprint.txt 62 1\n\n");
+	 	Example: Tab_To_PDF_Graph.exe tab_file.tab pdf_file.pdf\n\n");
 		return 0;
 	}
 
