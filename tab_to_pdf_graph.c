@@ -137,17 +137,16 @@ int main(int argc, char **argv)
 	int rec =0;
 	char graph_topline[128];
 	char cyc_num[5];
-	int batch_num = 0;
+	char label[10];
 
 
 	log_file = fopen(argv[1], "r");
 	if (log_file == NULL) printf("Log Files %s NULL", argv[1]);
 	else{
-		while ((fgets(fileline, 1024, log_file)) && (rec < 2)){
+		while ((fgets(fileline, 1024, log_file)) && (rec < 2)){ // Retrieve each line in the file
 			rec++;
 			if (rec == 1) {
-				strcpy(cyc_num, getfield(fileline, 1));
-				batch_num = atoi(getfield(fileline, 8));// Number of batch fields
+				strcpy(cyc_num, getfield(fileline, 1)); // Get Cycle Number
 		}
 
 	}
@@ -189,10 +188,10 @@ int main(int argc, char **argv)
 	/* Key Start Location on Page */
 	int offset = 80;
 	int key_pos = 560;
-
+	
    /* TE01 */
     HPDF_Page_SetLineWidth (page, 2);
-    HPDF_Page_SetRGBStroke (page, 0, 0, 0);
+	HPDF_Page_SetRGBStroke (page, 0, 0, 0);
     HPDF_Page_SetRGBFill (page, 0.0, 0.0, 0.5);
 
     HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
@@ -201,14 +200,16 @@ int main(int argc, char **argv)
 	HPDF_Page_BeginText (page);
 	HPDF_Page_SetRGBFill (page, 0, 0, 0.5);
 	HPDF_Page_SetTextMatrix (page, cos(rad1), sin(rad1), -sin(rad1), cos(rad1),key_pos, y-offset-10);
-	HPDF_Page_ShowText (page, "TE0");
+	sprintf(label, "TE0 (%cC)", 176);
+	label[8] = '\0';
+	HPDF_Page_ShowText (page, label);
 	HPDF_Page_EndText (page);
 	offset = offset + 80;
 
-	   /* TE02 */
+	   /* TE01 */
     HPDF_Page_SetLineWidth (page, 2);
-    HPDF_Page_SetRGBStroke (page, 0, 0, 0);
-    HPDF_Page_SetRGBFill (page, 0.0, 0.5, 0.0);
+	HPDF_Page_SetRGBStroke (page, 0, 0, 0);
+    HPDF_Page_SetRGBFill (page, 0.0, 0.5, 0.0); //
 
     HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
     HPDF_Page_Fill (page);
@@ -216,14 +217,16 @@ int main(int argc, char **argv)
 	HPDF_Page_BeginText (page);
 	HPDF_Page_SetRGBFill (page, 0, 0.5, 0.0);
 	HPDF_Page_SetTextMatrix (page, cos(rad1), sin(rad1), -sin(rad1), cos(rad1),key_pos, y-offset-10);
-	HPDF_Page_ShowText (page, "TE1");
+	sprintf(label, "TE1 (%cC)", 176);
+	label[8] = '\0';
+	HPDF_Page_ShowText (page, label);
 	HPDF_Page_EndText (page);
 	offset = offset + 80;
 
-	   /* TE03 */
+	   /* TE02 */
     HPDF_Page_SetLineWidth (page, 2);
     HPDF_Page_SetRGBStroke (page, 0, 0, 0);
-    HPDF_Page_SetRGBFill (page, 1.0, 0.0, 0.0);
+    HPDF_Page_SetRGBFill (page, 1.0, 0.0, 0.0); // Red
 
     HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
     HPDF_Page_Fill (page);
@@ -231,14 +234,16 @@ int main(int argc, char **argv)
 	HPDF_Page_BeginText (page);
 	HPDF_Page_SetRGBFill (page, 1.0, 0.0, 0.0);
 	HPDF_Page_SetTextMatrix (page, cos(rad1), sin(rad1), -sin(rad1), cos(rad1),key_pos, y-offset-10);
-	HPDF_Page_ShowText (page, "TE2");
+	sprintf(label, "TE2 (%cC)", 176);
+	label[8] = '\0';
+	HPDF_Page_ShowText (page, label);
 	HPDF_Page_EndText (page);
 	offset = offset + 80;
 
 		   /* PE07 */
     HPDF_Page_SetLineWidth (page, 2);
     HPDF_Page_SetRGBStroke (page, 0, 0, 0);
-    HPDF_Page_SetRGBFill (page, 0.5, 0.5, 0.5);
+    HPDF_Page_SetRGBFill (page, 0.5, 0.5, 0.5); // Grey
 
     HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
     HPDF_Page_Fill (page);
@@ -246,7 +251,7 @@ int main(int argc, char **argv)
 	HPDF_Page_BeginText (page);
 	HPDF_Page_SetRGBFill (page, 0.5, 0.5, 0.5);
 	HPDF_Page_SetTextMatrix (page, cos(rad1), sin(rad1), -sin(rad1), cos(rad1),key_pos, y-offset-10);
-	HPDF_Page_ShowText (page, "PE3");
+	HPDF_Page_ShowText (page, "PE3 (psia)");
 	HPDF_Page_EndText (page);
 	offset = offset + 80;
 
@@ -316,12 +321,12 @@ int main(int argc, char **argv)
 		}
 		temp_lines++;
 	}
-	char Y_label[5];
-	sprintf(Y_label, "%c  C", 176);
-	Y_label[4] = '\0';
+	
+	sprintf(label, "%cC", 176);
+	label[2] = '\0';
 	HPDF_Page_BeginText (page);
 	HPDF_Page_SetTextMatrix (page, cos(rad1), sin(rad1), -sin(rad1), cos(rad1),550, y+17);
-	HPDF_Page_ShowText (page, Y_label);
+	HPDF_Page_ShowText (page, label);
 	HPDF_Page_EndText (page);
 
 
@@ -364,10 +369,10 @@ int main(int argc, char **argv)
  	int lines=0;
      rec = 0;
 
-	log_file = fopen(argv[1], "r");
-		while (fgets(fileline, 1024, log_file)){
+	log_file = fopen(argv[1], "r"); // Open tab File
+		while (fgets(fileline, 1024, log_file)){ // Retrieve each line in the file
 			rec++;
-			if (rec > (3 + batch_num)) {
+			if (rec > 5) { //Skip first 5 rows meant for cycle details
 				strcpy(cell,getfield(fileline, 0));
 				if (atoi(cell)==0){
 					lines++;
@@ -378,7 +383,7 @@ int main(int argc, char **argv)
 				}
 			}
 		}
-	fclose(log_file);
+	fclose(log_file); // Close tab File
 
 
 //////////  Add Timeline labels
@@ -396,10 +401,10 @@ int main(int argc, char **argv)
 	else if (total_mins < 60) interval = 10;
 	else interval = 20;
 
-	log_file = fopen(argv[1], "r");
-	while (fgets(fileline, 1024, log_file)){
+	log_file = fopen(argv[1], "r"); // Open tab File
+	while (fgets(fileline, 1024, log_file)){ // Retrieve each line in the file
 		rec++;
-		if (rec > (3 + batch_num)) {
+		if (rec > 5) { //Skip first 5 rows meant for cycle details
 			strcpy(cell,getfield(fileline, 0));
 			if (atoi(cell)==0){
 				lines++;
@@ -421,7 +426,7 @@ int main(int argc, char **argv)
 			}
 		}
 	}
-	fclose(log_file);
+	fclose(log_file); // Close tab File
 
 
 
@@ -443,20 +448,20 @@ int main(int argc, char **argv)
 	HPDF_Page_SetLineWidth (page, 1.0);
 	HPDF_Page_SetRGBFill (page, 0, 0, 0);
 
-	////////////////  LINE 1   ///////////////////////////////////
+	////////////////  LINE 1   (TE0)
 
 
-	log_file = fopen(argv[1], "r");
+	log_file = fopen(argv[1], "r"); // Open tab File
 
-	HPDF_Page_SetRGBStroke (page, 0, 0, 0.5);
+	HPDF_Page_SetRGBStroke (page, 0, 0, 0.5); // Blue
 
 		rec =0;
 		act =0;
 
-		while (fgets(fileline, 1024, log_file)){
+		while (fgets(fileline, 1024, log_file)){ // Retrieve each line in the file
 			rec++;
-			if (rec > (3 + batch_num)) {
-				strcpy(cell,getfield(fileline, 0));
+			if (rec > 5) { //Skip first 5 rows meant for cycle details
+				strcpy(cell,getfield(fileline, 0)); // Get interval trigger code from first column
 				if(atoi(cell)==0){
 					strcpy(cell,getfield(fileline, 8));
 					x = (3*strtod(cell, &ptr)) +90;
@@ -469,23 +474,22 @@ int main(int argc, char **argv)
 			}
 		}
 	HPDF_Page_Stroke (page);
-	fclose(log_file);
+	fclose(log_file); // Close tab File
+
+	////////////////  LINE 2 (TE1)
 
 
-	////////////////  LINE 2
+	log_file = fopen(argv[1], "r"); // Open tab File
 
-
-	log_file = fopen(argv[1], "r");
-
-	HPDF_Page_SetRGBStroke (page, 0, 0.5, 0);
+	HPDF_Page_SetRGBStroke (page, 0, 0.5, 0); // Green
 
 		rec =0;
 		act =0;
 
-		while (fgets(fileline, 1024, log_file)){
+		while (fgets(fileline, 1024, log_file)){ // Retrieve each line in the file
 			rec++;
-			if (rec > (3 + batch_num)) {
-				strcpy(cell,getfield(fileline, 0));
+			if (rec > 5) { //Skip first 5 rows meant for cycle details
+				strcpy(cell,getfield(fileline, 0)); // Get interval trigger code from first column
 				if(atoi(cell)==0){
 					strcpy(cell,getfield(fileline, 9));
 					x = (3*strtod(cell, &ptr)) +90;
@@ -498,22 +502,23 @@ int main(int argc, char **argv)
 			}
 		}
 	HPDF_Page_Stroke (page);
-	fclose(log_file);
-
-	////////////////  LINE 3
+	fclose(log_file); // Close tab File
 
 
-	log_file = fopen(argv[1], "r");
+	////////////////  LINE 3 (TE2)
 
-	HPDF_Page_SetRGBStroke (page, 1, 0, 0);
+
+	log_file = fopen(argv[1], "r"); // Open tab File
+
+	HPDF_Page_SetRGBStroke (page, 1, 0, 0); // Red
 
 		rec =0;
 		act =0;
 
-		while (fgets(fileline, 1024, log_file)){
+		while (fgets(fileline, 1024, log_file)){ // Retrieve each line in the file
 			rec++;
-			if (rec > (3 + batch_num)) {
-				strcpy(cell,getfield(fileline, 0));
+			if (rec > 5) { //Skip first 5 rows meant for cycle details
+				strcpy(cell,getfield(fileline, 0)); // Get interval trigger code from first column
 				if(atoi(cell)==0){
 					strcpy(cell,getfield(fileline, 10));
 					x = (3*strtod(cell, &ptr)) +90;
@@ -526,22 +531,22 @@ int main(int argc, char **argv)
 			}
 		}
 	HPDF_Page_Stroke (page);
-	fclose(log_file);
+	fclose(log_file); // Close tab File
 
-	////////////////  LINE 4
+	////////////////  LINE 4 (PE3)
 
 
-	log_file = fopen(argv[1], "r");
+	log_file = fopen(argv[1], "r"); // Open tab File
 
-	HPDF_Page_SetRGBStroke (page, 0.5, 0.5, 0.5);
+	HPDF_Page_SetRGBStroke (page, 0.5, 0.5, 0.5); // Grey
 
 		rec =0;
 		act =0;
 
-		while (fgets(fileline, 1024, log_file)){
+		while (fgets(fileline, 1024, log_file)){ // Retrieve each line in the file
 			rec++;
-			if (rec > (3 + batch_num)) {
-				strcpy(cell,getfield(fileline, 0));
+			if (rec > 5) { //Skip first 5 rows meant for cycle details
+				strcpy(cell,getfield(fileline, 0)); // Get interval trigger code from first column
 				if(atoi(cell)==0){
 					strcpy(cell,getfield(fileline, 15));
 					x = (6*strtod(cell, &ptr)) +90;
@@ -554,7 +559,7 @@ int main(int argc, char **argv)
 			}
 		}
 	HPDF_Page_Stroke (page);
-	fclose(log_file);
+	fclose(log_file); // Close tab File
 
 // *********** END GRAPH ***************** END GRAPH ******************* END GRAPH **************** END GRAPH *********//
 	}
