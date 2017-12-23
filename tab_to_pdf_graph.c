@@ -29,7 +29,7 @@ void
 #endif
 error_handler(HPDF_STATUS   error_no,
 HPDF_STATUS   detail_no,
-void         *user_data)
+void		 *user_data)
 {
 	printf("ERROR: error_no=%04X, detail_no=%u\n", (HPDF_UINT)error_no,
 		(HPDF_UINT)detail_no);
@@ -49,14 +49,14 @@ const char* getfield(char* tmpline, int col_num){
   pch=strchr(tmpline,'\t');
   tmp_tab[0] = '\0'; //V6
   while (pch!=NULL){
-    end = pch-tmpline+1;
-    if (i == col_num){
+	end = pch-tmpline+1;
+	if (i == col_num){
 		for(q = 0; (q < end-start-1)&& (q < 64); q++) tmp_tab[q] = tmpline[start+q];
-        tmp_tab[q]='\0';
-    }
-    i++;
-    start = pch-tmpline+1;
-    pch=strchr(pch+1,'\t');
+		tmp_tab[q]='\0';
+	}
+	i++;
+	start = pch-tmpline+1;
+	pch=strchr(pch+1,'\t');
   }
 
    return tmp_tab;
@@ -153,8 +153,8 @@ int main(int argc, char **argv)
 	fclose(log_file);
 	sprintf(graph_topline, "CYCLE %s LIBHARU TREND GRAPH EXAMPLE", cyc_num);
 
-    double x=0;
-    double y = 700; // reference point for start of graph at top of page (left in landscape)
+	double x=0;
+	double y = 700; // reference point for start of graph at top of page (left in landscape)
 	double z =0;
 
 
@@ -165,10 +165,10 @@ int main(int argc, char **argv)
 	height = HPDF_Page_GetHeight(page);
 	HPDF_Page_BeginText(page);
 	HPDF_Page_MoveTextPos(page, 100, height - 25);
-    font = HPDF_GetFont(pdf, "Helvetica", "WinAnsiEncoding");
+	font = HPDF_GetFont(pdf, "Helvetica", "WinAnsiEncoding");
 	HPDF_Page_SetFontAndSize (page, font, 16);
 	HPDF_Page_ShowText (page, graph_topline);
-    HPDF_Page_EndText (page);
+	HPDF_Page_EndText (page);
 
 
 
@@ -178,8 +178,8 @@ int main(int argc, char **argv)
 	float rad1;
 
 	/* Set graph to Landscape */
-    angle1 = 270;                   /* A rotation of 270 degrees. */
-    rad1 = angle1 / 180 * 3.141592; /* Calcurate the radian value. */
+	angle1 = 270;				   /* A rotation of 270 degrees. */
+	rad1 = angle1 / 180 * 3.141592; /* Calcurate the radian value. */
 
 	/* Key Fonts */
 	font = HPDF_GetFont(pdf, "Helvetica", "WinAnsiEncoding");
@@ -190,12 +190,12 @@ int main(int argc, char **argv)
 	int key_pos = 560;
 	
    /* TE01 */
-    HPDF_Page_SetLineWidth (page, 2);
+	HPDF_Page_SetLineWidth (page, 2);
 	HPDF_Page_SetRGBStroke (page, 0, 0, 0);
-    HPDF_Page_SetRGBFill (page, 0.0, 0.0, 0.5);
+	HPDF_Page_SetRGBFill (page, 0.0, 0.0, 0.5);
 
-    HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
-    HPDF_Page_Fill (page);
+	HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
+	HPDF_Page_Fill (page);
 
 	HPDF_Page_BeginText (page);
 	HPDF_Page_SetRGBFill (page, 0, 0, 0.5);
@@ -207,12 +207,12 @@ int main(int argc, char **argv)
 	offset = offset + 80;
 
 	   /* TE01 */
-    HPDF_Page_SetLineWidth (page, 2);
+	HPDF_Page_SetLineWidth (page, 2);
 	HPDF_Page_SetRGBStroke (page, 0, 0, 0);
-    HPDF_Page_SetRGBFill (page, 0.0, 0.5, 0.0); //
+	HPDF_Page_SetRGBFill (page, 0.0, 0.5, 0.0); //
 
-    HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
-    HPDF_Page_Fill (page);
+	HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
+	HPDF_Page_Fill (page);
 
 	HPDF_Page_BeginText (page);
 	HPDF_Page_SetRGBFill (page, 0, 0.5, 0.0);
@@ -224,12 +224,12 @@ int main(int argc, char **argv)
 	offset = offset + 80;
 
 	   /* TE02 */
-    HPDF_Page_SetLineWidth (page, 2);
-    HPDF_Page_SetRGBStroke (page, 0, 0, 0);
-    HPDF_Page_SetRGBFill (page, 1.0, 0.0, 0.0); // Red
+	HPDF_Page_SetLineWidth (page, 2);
+	HPDF_Page_SetRGBStroke (page, 0, 0, 0);
+	HPDF_Page_SetRGBFill (page, 1.0, 0.0, 0.0); // Red
 
-    HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
-    HPDF_Page_Fill (page);
+	HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
+	HPDF_Page_Fill (page);
 
 	HPDF_Page_BeginText (page);
 	HPDF_Page_SetRGBFill (page, 1.0, 0.0, 0.0);
@@ -241,12 +241,12 @@ int main(int argc, char **argv)
 	offset = offset + 80;
 
 		   /* PE07 */
-    HPDF_Page_SetLineWidth (page, 2);
-    HPDF_Page_SetRGBStroke (page, 0, 0, 0);
-    HPDF_Page_SetRGBFill (page, 0.5, 0.5, 0.5); // Grey
+	HPDF_Page_SetLineWidth (page, 2);
+	HPDF_Page_SetRGBStroke (page, 0, 0, 0);
+	HPDF_Page_SetRGBFill (page, 0.5, 0.5, 0.5); // Grey
 
-    HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
-    HPDF_Page_Fill (page);
+	HPDF_Page_Rectangle(page, key_pos, y-offset, 15, 15);
+	HPDF_Page_Fill (page);
 
 	HPDF_Page_BeginText (page);
 	HPDF_Page_SetRGBFill (page, 0.5, 0.5, 0.5);
@@ -367,7 +367,7 @@ int main(int argc, char **argv)
 	int hours =0;
 	int minutes =0;
  	int lines=0;
-     rec = 0;
+	 rec = 0;
 
 	log_file = fopen(argv[1], "r"); // Open tab File
 		while (fgets(fileline, 1024, log_file)){ // Retrieve each line in the file
@@ -439,7 +439,7 @@ int main(int argc, char **argv)
 * A CODE NUMBER 0 INDICATES A NORMAL TIMED INTERVAL WITTEN BY THE LOGGING SYSTEM THAT
 * CREATED THE DATABASE. THIS INTERVAL TRIGGERS A NEW LINE DRAW. 
 * AFTER THE FILE SCAN IS COMPLETE, THE MANY LINE DRAWINGS WILL COMPILE
-* A TREND LINE FOR ONE COLUMN OF VALUES. THIS IS REPEATED 4 TIMES IN THIS EXAMPLE.                                            
+* A TREND LINE FOR ONE COLUMN OF VALUES. THIS IS REPEATED 4 TIMES IN THIS EXAMPLE.											
 */
 
 	char *ptr;
