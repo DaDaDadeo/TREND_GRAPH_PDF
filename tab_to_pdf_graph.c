@@ -442,7 +442,7 @@ int main(int argc, char **argv)
 * A TREND LINE FOR ONE COLUMN OF VALUES. THIS IS REPEATED 4 TIMES IN THIS EXAMPLE.											
 */
 
-	char *ptr;
+	char *ptr; //Pointer required for converting string to float (double int) value.
 
 	/* Default Line Attributes */
 	HPDF_Page_SetLineWidth (page, 1.0);
@@ -462,9 +462,9 @@ int main(int argc, char **argv)
 			rec++;
 			if (rec > 5) { //Skip first 5 rows meant for cycle details
 				strcpy(cell,getfield(fileline, 0)); // Get interval trigger code from first column
-				if(atoi(cell)==0){
-					strcpy(cell,getfield(fileline, 8));
-					x = (3*strtod(cell, &ptr)) +90;
+				if(atoi(cell)==0){ // If interval code, calulate next line point locations 
+					strcpy(cell,getfield(fileline, 8)); 
+					x = (3*strtod(cell, &ptr)) +90; 
 					if (act==0) HPDF_Page_MoveTo (page, x, y);
 					else if (act < (lines -1)){
 						HPDF_Page_LineTo (page, x, y - (z*(double)act));
@@ -490,7 +490,7 @@ int main(int argc, char **argv)
 			rec++;
 			if (rec > 5) { //Skip first 5 rows meant for cycle details
 				strcpy(cell,getfield(fileline, 0)); // Get interval trigger code from first column
-				if(atoi(cell)==0){
+				if(atoi(cell)==0){ // If interval code, calulate next line point locations 
 					strcpy(cell,getfield(fileline, 9));
 					x = (3*strtod(cell, &ptr)) +90;
 					if (act==0) HPDF_Page_MoveTo (page, x, y);
@@ -519,7 +519,7 @@ int main(int argc, char **argv)
 			rec++;
 			if (rec > 5) { //Skip first 5 rows meant for cycle details
 				strcpy(cell,getfield(fileline, 0)); // Get interval trigger code from first column
-				if(atoi(cell)==0){
+				if(atoi(cell)==0){ // If interval code, calulate next line point locations 
 					strcpy(cell,getfield(fileline, 10));
 					x = (3*strtod(cell, &ptr)) +90;
 					if (act==0) HPDF_Page_MoveTo (page, x, y);
@@ -547,7 +547,7 @@ int main(int argc, char **argv)
 			rec++;
 			if (rec > 5) { //Skip first 5 rows meant for cycle details
 				strcpy(cell,getfield(fileline, 0)); // Get interval trigger code from first column
-				if(atoi(cell)==0){
+				if(atoi(cell)==0){ // If interval code, calulate next line point locations 
 					strcpy(cell,getfield(fileline, 15));
 					x = (6*strtod(cell, &ptr)) +90;
 					if (act==0) HPDF_Page_MoveTo (page, x, y);
